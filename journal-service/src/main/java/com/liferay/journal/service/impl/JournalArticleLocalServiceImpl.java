@@ -8070,10 +8070,13 @@ public class JournalArticleLocalServiceImpl
 			validate(articleId);
 		}
 
-		JournalArticle article = journalArticlePersistence.fetchByG_A_V(
-			groupId, articleId, version);
+		List<JournalArticle> article = journalArticlePersistence.findByG_A(
+			groupId, articleId);
 
-		if (article != null) {
+		boolean skipDuplicateArticleCheck = GetterUtil.get(
+			serviceContext.getAttribute("skipDuplicateArticleCheck"), false);
+
+		if (!article.isEmpty() && !skipDuplicateArticleCheck) {
 			StringBundler sb = new StringBundler(7);
 
 			sb.append("{groupId=");

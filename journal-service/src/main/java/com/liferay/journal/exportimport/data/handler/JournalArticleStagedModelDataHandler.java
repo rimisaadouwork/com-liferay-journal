@@ -748,6 +748,9 @@ public class JournalArticleStagedModelDataHandler
 					articleResourceUuid, portletDataContext.getScopeGroupId(),
 					articleId, newArticleId, preloaded);
 
+				serviceContext.setAttribute("skipDuplicateArticleCheck",
+					(preloaded || existingArticle != null));
+
 				JournalArticle existingArticleVersion = null;
 
 				if (existingArticle != null) {
